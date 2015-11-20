@@ -1,20 +1,21 @@
 ---
 layout: post
-title:  "How To Write A Twitter Bot"
+title:  "How To Write A Twitter Bot In 5 Minutes"
 date:   2015-11-20 11:00:00
 categories: tutorial
 ---
 
-Ever wanted to write your own Twitter bot? 
+Have you ever wanted to write your own Twitter bot? I did too, but for
+some reason I had the notion that it would be really complicated.
 
-In this tutorial I'll show you how to write a Twitter bot that will
-post a random quote in your feed when you run it. Impress your friends
-with your wisdom while learning how the Twitter API works - what could
-be better?
+However, it turns out I was wrong; using Python and the Twitter API you can go
+from zero to "Hello world!" in just five minutes. Read on and I'll show you
+how.
 
 Register our App
 ----------------
 
+<!--
 Twitter requires two kinds of authentication before we can start
 posting on someone's timeline:
 
@@ -25,37 +26,39 @@ posting on someone's timeline:
 
 To get the first set of credentials we need to register a Twitter app.
 Go to https://apps.twitter.com and click the "Create New App" button.
+-->
 
-You'll be prompted to fill in a name, description and website URL for
-your app - as long as you don't plan on doing anything serious with
-your app you can put placeholder information here for the time being.
+In order to get access to the Twitter API we must first register an
+app. Log in to Twitter, go to [https://apps.twitter.com][apps] and
+click the "Create New App" button.
 
-The "Callback URL" field is used if you have a web service which you
-can use for user authentication, but we'll leave that blank for now.
+You'll be prompted for a name, description and website URL - as long
+as you don't plan on doing anything serious with your app you can put
+placeholder information here for the time being.
 
-When you've filled out the necessary information, click "Create Your
-Twitter Application". You'll be taken to an overview of your
-application.
+The "Callback URL" field is only relevant if you have a web service
+which handles user authentication, so skip that for now.
+
+When you've filled out the necessary fields, click "Create Your
+Twitter Application". You'll be taken to an overview page with
+information about your app.
 
 Next, click the "Keys and Access Tokens" tab - here you'll find your
-"Consumer Key" and "Consumer Secret" keys, which you'll need later.
+**Consumer Key** and **Consumer Secret** keys, which we'll use in the
+next step.
 
-That's it! Now we can move on to the actual code.
+Setup
+-----
 
-Installing Tweepy
------------------
+Remember that one of the greatest virtues of a programmer is
+[laziness][laziness]! To that end, we'll use a library called
+[Tweepy][tweepy] to interact with the Twitter API.
 
-Remember that one of the [greatest virtues][laziness] of a programmer
-is laziness! To that end, we'll use a library called [Tweepy][tweepy]
-to help us interact with the Twitter API, which will save us a lot of
-work.
-
-Tweepy can be installed via pip, like so:
+Tweepy can be installed via [pip][pip], like so:
 
     pip install tweepy
 
-Let's see if it works - create a new Python file and type in the
-following:
+Let's see if it works - open up a new Python prompt and type this:
 
 {% highlight python %}
 import tweepy
@@ -70,55 +73,45 @@ print(auth.get_authorization_url())
 
 {% endhighlight %}
 
-If everything worked as expected the program should now print an URL.
+If everything worked as expected the program should now print an
+**authorization URL**, which we'll use shortly.
 
 Who Are You?
 ------------
 
-Twitter uses OAuth for authentication, which allows an app to act on
-a user's behalf without having to share her password. Instead of the
-user's password, we'll be given an *authentication token* that we can
-use to log in to the Twitter API.
+Twitter apps use [OAuth][oauth] for authentication, which allows an
+app to act on a user's behalf without the user having to share her
+password. Instead, the app uses an **access token** to authenticate
+with the API.
 
-However, before we get the token the user must grant us permission to
-use her account, which is what the authorization URL is used for.
-After the user has approved our app she'll get a *verification code*
-which we can exchange for an OAuth token.
+Before we can get the token we must get permission from the user, which is what
+the authorization URL is for. Open the authorization URL you got in the
+previous stepg and grant the app access to your account. 
 
-The following lines will ask for the user's verification code and
-fetch an OAuth token from the Twitter API:
-
-{% highlight python %}
-verification_code = raw_input('Enter verification code: ')
-oauth_key, oauth_secret = auth.get_access_token(verification_code)
-{% endhighlight %}
-
-The OAuth token consists of a key and a secret, both of which are
-valid forever, as the user doesn't revoke our access. That means if we
-save the token the user won't have to log in every time she wants to
-use the app.
-
-However, let's settle for printing the token for now:
+After granting the app access, you'll be given a **verification
+code**, which we can trade for an OAuth token. Copy the verification
+code, then go back to the Python shell and enter the following
+commands:
 
 {% highlight python %}
+# Substitute this with your verification code:
+VERIFICATION_CODE = 'Your verification code'
+oauth_key, oauth_secret = auth.get_access_token(VERIFICATION_CODE)
+
 print(oauth_key)
 print(oauth_secret)
 {% endhighlight %}
 
-Run the script again. When it prints the authorization URL, open the
-it in a web browser. You'll be asked to grant the app some
-permissions. After you've done that, you'll get the verification code
-which you can enter into the app.
-
-If everything worked as expected the app should now spit out the
-values for `OAUTH_KEY` and `OAUTH_SECRET`. Make sure to write them
-down - you'll need them later!
+The OAuth token consists of a key and a secret, both of which are
+valid forever or until you revoke the app's access. In the next step,
+we'll use the key and secret to authenticate with the API, so write
+them down.
 
 Time to Post
 ------------
 
 Now we have everything we need to start posting! Create a new Python
-and enter the following lines:
+script with the following lines:
 
 {% highlight python %}
 import tweepy
@@ -135,43 +128,49 @@ api = tweepy.API(auth)
 api.update_status('Hello world!')
 {% endhighlight %}
 
-If everything works as expected, the program should post "Hello
-world!" to your timeline. Congratulations, you've created your first
-Twitter bot!
+Try running the script; it should post "Hello world!" on your
+timeline. Go to Twitter and admire your handiwork---you've created
+your first bot!
 
 Getting Sophisticated
 ---------------------
 
 You would probably lose a lot of followers if all you ever posted was
-"Hello world!", so let's mix things up a little.
+"Hello world!", so let's mix things up a bit.
 
-To make things easier I've compiled a list of tweet-length nuggets of
-wisdom from [Wikiquote][wikiquote] and put them in a plaintext file:
-(link here) Download it and put it in the same directory as your
-Python script.
+Since everyone loves famous quotes I've compiled a list of
+tweet-length nuggets of wisdom from [Wikiquote][wikiquote] and put
+them in a plaintext file. To use them, download [quotes.txt][quotes]
+and save it in the same directory as your Python script.
 
-We'll start by creating a list of quotes. Each quote is on its own
-line, so all we have to do is read the file into a list of lines:
+In order to be able to pick a random quote we need to read the quotes
+into a list. Since each quote is on its own line, all we need to do is
+to open the file and use the `list()` function:
 
 {% highlight python %}
 with open('quotes.txt') as f:
     quotes = list(f)
 {% endhighlight %}
 
-To make things easier we can use Python's `random` module. Put this at
-the start of the script:
+To make selecting quotes easier we can use Python's `random` module.
+Put this at the start of the script:
 
 {% highlight python %}
 import random
 {% endhighlight %}
 
-Now we can use `random.choice` to pick a random quote from the list:
+Instead of "Hello world!" we can now use `random.choice` to pick
+a random quote from the list:
 
 {% highlight python %}
 api.update_status(random.choice(quotes))
 {% endhighlight %}
 
+
+[apps]: https://apps.twitter.com
 [laziness]: http://c2.com/cgi/wiki?LazinessImpatienceHubris
 [tweepy]: http://www.tweepy.org/
 [pip]: https://docs.python.org/2.7/installing/
 [wikiquote]: https://en.wikiquote.org
+[oauth]: https://en.wikipedia.org/wiki/OAuth
+[quotes]: https://gist.githubusercontent.com/johnytex/5e6d900ac2bc0ef282fd/raw/181f9df9c03baf460e431964b40bd7f896dd142c/quotes.txt
