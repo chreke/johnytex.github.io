@@ -166,11 +166,35 @@ a random quote from the list:
 api.update_status(random.choice(quotes))
 {% endhighlight %}
 
+Extra Credits
+-------------
+
+While this was a fun exercise there are tons of things that could be
+improved. Other than exploring the [Tweepy documentation][tweepy-docs]
+to see what else is possible with the API, I have some further
+suggestions:
+
+ * Since the OAuth key and secret are hardcorded only you can use the
+   application. How could you make it easy for others to use your app?
+   Remember that once the OAuth token is downloaded it can be saved
+   and reused!
+
+ * As is, the script needs to be run manually every time you want to
+   post. How could you make it post at scheduled intervals? Using
+   a [cron job][cron] or rewriting the script to run as a [Python
+   daemon][python-daemon] are good places to start.
+
+ * Just because history repeats itself doesn't mean your Twitter
+   history has to! How can you make sure that your app doesn't repeat
+   quotes too often?
 
 [apps]: https://apps.twitter.com
 [laziness]: http://c2.com/cgi/wiki?LazinessImpatienceHubris
 [tweepy]: http://www.tweepy.org/
+[tweepy-docs]: http://tweepy.readthedocs.org/en/v3.5.0/
 [pip]: https://docs.python.org/2.7/installing/
 [wikiquote]: https://en.wikiquote.org
 [oauth]: https://en.wikipedia.org/wiki/OAuth
 [quotes]: https://gist.githubusercontent.com/johnytex/5e6d900ac2bc0ef282fd/raw/181f9df9c03baf460e431964b40bd7f896dd142c/quotes.txt
+[cron]: https://en.wikipedia.org/wiki/Cron
+[python-daemon]: https://pypi.python.org/pypi/python-daemon/
