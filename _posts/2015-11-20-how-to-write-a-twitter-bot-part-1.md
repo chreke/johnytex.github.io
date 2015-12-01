@@ -8,9 +8,9 @@ categories: tutorial
 Have you ever wanted to write your own Twitter bot? I did too, but for
 some reason I had the notion that it would be really complicated.
 
-However, it turns out I was wrong; using Python and the Twitter API you can go
-from zero to "Hello world!" in just five minutes. Read on and I'll show you
-how.
+However, it turns out I was wrong; using Python and the Twitter API
+you can go from zero to "Hello world!" in just five minutes. Read on
+and I'll show you how.
 
 Register our App
 ----------------
@@ -32,12 +32,10 @@ In order to get access to the Twitter API we must first register an
 app. Log in to Twitter, go to [https://apps.twitter.com][apps] and
 click the "Create New App" button.
 
-You'll be prompted for a name, description and website URL - as long
-as you don't plan on doing anything serious with your app you can put
-placeholder information here for the time being.
-
-The "Callback URL" field is only relevant if you have a web service
-which handles user authentication, so skip that for now.
+You'll be prompted for a name, description and website URL - put
+placeholder information here for the time being. The "Callback URL"
+field is only relevant if you have a web service which handles user
+authentication, so leave that blank for now.
 
 When you've filled out the necessary fields, click "Create Your
 Twitter Application". You'll be taken to an overview page with
@@ -74,7 +72,7 @@ print(auth.get_authorization_url())
 {% endhighlight %}
 
 If everything worked as expected the program should now print an
-**authorization URL**, which we'll use shortly.
+**authorization URL** - copy it and proceed to the next step.
 
 Who Are You?
 ------------
@@ -84,12 +82,13 @@ app to act on a user's behalf without the user having to share her
 password. Instead, the app uses an **access token** to authenticate
 with the API.
 
-Before we can get the token we must get permission from the user, which is what
-the authorization URL is for. Open the authorization URL you got in the
-previous stepg and grant the app access to your account. 
+Before we can get the token we must get permission from the user,
+which is what the authorization URL is for. Open the authorization URL
+you got in the previous stepg and grant the app access to your
+account.
 
 After granting the app access, you'll be given a **verification
-code**, which we can trade for an OAuth token. Copy the verification
+code**, which you can trade for an OAuth token. Copy the verification
 code, then go back to the Python shell and enter the following
 commands:
 
