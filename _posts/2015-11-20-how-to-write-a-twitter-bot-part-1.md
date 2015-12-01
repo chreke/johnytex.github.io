@@ -165,6 +165,10 @@ a random quote from the list:
 api.update_status(random.choice(quotes))
 {% endhighlight %}
 
+![Twitter Quote](/assets/twitter-quote.png)
+
+Much better!
+
 Extra Credits
 -------------
 
