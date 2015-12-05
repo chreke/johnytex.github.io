@@ -2,7 +2,7 @@
 layout: post
 title:  "How To Write A Twitter Bot In 5 Minutes"
 date:   2015-11-20 11:00:00
-categories: tutorial
+categories: tutorials
 ---
 
 Have you ever wanted to write your own Twitter bot? I did too, but for
