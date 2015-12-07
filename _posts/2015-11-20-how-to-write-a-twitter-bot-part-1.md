@@ -75,8 +75,10 @@ print(auth.get_authorization_url())
 If everything worked as expected the program should now print an
 **authorization URL** - copy it and proceed to the next step.
 
-Who Are You?
-------------
+Keys And Secrets
+----------------
+
+![Key](/assets/keys-and-secrets.png){: .float-right height="33%" width="33%"}
 
 Twitter apps use [OAuth][oauth] for authentication, which allows an
 app to act on a user's behalf without the user having to share her
@@ -134,6 +136,8 @@ your first bot!
 
 Getting Sophisticated
 ---------------------
+
+![Tweeting](/assets/getting-sophisticated.png){: .center height="60%" width="60%"}
 
 You would probably lose a lot of followers if all you ever posted was
 "Hello world!", so let's mix things up a bit.
